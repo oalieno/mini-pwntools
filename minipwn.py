@@ -43,7 +43,7 @@ def p64(x):
     return struct.pack('<Q', x)
 
 def u64(x):
-    return struct.unpack('<Q', x)[0]
+    return struct.unpack('<Q', x.ljust(8, b'\x00'))[0]
 
 def flat(*xs):
     return b''.join(map(p64, xs))
