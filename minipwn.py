@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import socket
+import struct
 
 class remote:
     def __init__(self, host, port):
@@ -37,3 +38,12 @@ class remote:
     def sendlineafter(self, prefix, text):
         self.recvuntil(prefix)
         self.sendline(text)
+
+def p64(x):
+    return struct.pack('<Q', x)
+
+def u64(x):
+    return struct.unpack('<Q', x)[0]
+
+def flat(*xs):
+    return b''.join(map(p64, xs))
