@@ -8,6 +8,7 @@ class remote:
         self.s.connect((host, port))
         self.buffer = b''
     def recvuntil(self, text):
+        text = self._convert_to_bytes(text)
         while text not in self.buffer:
             self.buffer += self.s.recv(1024)
         index = self.buffer.find(text) + len(text)
