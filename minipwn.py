@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import socket
 import struct
+import telnetlib
 
 class remote:
     def __init__(self, host, port):
@@ -39,6 +40,10 @@ class remote:
     def sendlineafter(self, prefix, text):
         self.recvuntil(prefix)
         self.sendline(text)
+    def interactive(self):
+        t = telnetlib.Telnet()
+        t.sock = self.s
+        t.interact()
 
 def p64(x):
     return struct.pack('<Q', x)
